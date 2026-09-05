@@ -3,9 +3,11 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMar
 menu = ReplyKeyboardMarkup(
     keyboard = [
         [KeyboardButton(text="!help"),
-         KeyboardButton(text="!choice_ai")]
+         KeyboardButton(text="!choice_ai"),
+         KeyboardButton(text="!stats")]
     ],
     resize_keyboard=True
+    one_time_keyboard=True
 )
 
 
