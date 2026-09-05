@@ -6,7 +6,7 @@ menu = ReplyKeyboardMarkup(
          KeyboardButton(text="!choice_ai"),
          KeyboardButton(text="!stats")]
     ],
-    resize_keyboard=True
+    resize_keyboard=True,
     one_time_keyboard=True
 )
 
