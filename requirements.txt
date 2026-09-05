@@ -1,5 +1,0 @@
-aiogram
-sqlalchemy
-openai
-dotenv
-asyncpg
