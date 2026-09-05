@@ -23,7 +23,7 @@ async def cmd_start(message: Message):
         return
     answer = await user_register(user_id)
     if answer:
-        await message.reply("Вы зарегистрированны напишите команду !help.", reply_markup = kb.menu)
+        await message.reply("Вы зарегистрированны напишите команду !help.")
     else:
         await message.reply("Вы уже зарегистрированны.")
 
