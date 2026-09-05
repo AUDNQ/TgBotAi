@@ -1,16 +1,5 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, InlineKeyboardButton
 
-menu = ReplyKeyboardMarkup(
-    keyboard = [
-        [KeyboardButton(text="!help"),
-         KeyboardButton(text="!choice_ai"),
-         KeyboardButton(text="!stats")]
-    ],
-    resize_keyboard=True,
-    one_time_keyboard=True
-)
-
-
 free_ai = InlineKeyboardMarkup(
     inline_keyboard=[
             [InlineKeyboardButton(text="Gemini 3.7 Flash", callback_data="Ai_Gemini 3.7 Flash")],
