@@ -90,13 +90,13 @@ async def cmd_stats(message: Message):
         privilege = user_data["user_privilege"]
         user_ai = user_data["user_ai"]
         if privilege in {"free", "pro"}:
-            await message.reply(f"Статистика:\n\nВаш ID: {user_id}.\nПривилегия: {privilege}.\n ИИ модель: {user_ai}.\n Сообщений сегодня: {user_data['user_message_today']}.")
+            await message.reply(f"Статистика:\n\nВаш ID: {user_id}.\nПривилегия: {privilege}.\nИИ модель: {user_ai}.\nСообщений сегодня: {user_data['user_message_today']}.")
         elif privilege == "admin":
             data = await view_data()
             count_user = data["total"]
             count_user_free = data["free"]
             count_user_pro = data["pro"]
-            await message.reply(f"Статистика:\n\nВаш ID: {user_id}.\nПривилегия: {privilege}.\n ИИ модель: {user_ai}.\n Всего пользователей: {count_user}.\n С подпиской pro: {count_user_pro}.\n С подпиской free: {count_user_free}.")
+            await message.reply(f"Статистика:\n\nВаш ID: {user_id}.\nПривилегия: {privilege}.\nИИ модель: {user_ai}.\nВсего пользователей: {count_user}.\nС подпиской pro: {count_user_pro}.\nС подпиской free: {count_user_free}.")
     else:
         await message.reply("Зарегистрируйтесь через !start.")
 
