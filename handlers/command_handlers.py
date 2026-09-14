@@ -4,7 +4,7 @@ from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from core.db import user_register, is_user_registered, view_user, view_data, add_data
 from services.chat_engine import get_simple_user_id
-from core.keyboards import as kb
+import core.keyboards as kb
 from core.data import HELP_TEXT, INFO_PRO, AddProState, system_message, limit_channel
 import logging
 import copy
