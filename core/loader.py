@@ -17,7 +17,6 @@ app = Client(
     api_id=API_ID,
     api_hash=API_HASH,
     session_string=SESSION_STRING,
-    in_memory=True,
     device_model="Honor X8D",
     system_version="14 (34)",
     app_version="11.13.2 (60601)",
