@@ -114,7 +114,7 @@ async def chat_shared_handler(message: Message):
         await message.reply("Зарегистрируйтесь через !start.")
 
 
-@router.message(Command("DellChannel", prefix=["/", "!"]))
+@router.message(Command("DelChannel", prefix=["/", "!"]))
 async def cmd_dell_channel(message: Message):
     user_id = get_simple_user_id(message=message)
     if not user_id:
