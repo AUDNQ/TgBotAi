@@ -10,10 +10,9 @@ TOKEN = os.getenv("BOT_TOKEN")
 AI_TOKEN_API_KEY = os.getenv("AI_TOKEN_API_KEY")
 API_ID = int(os.getenv("API_ID"))
 API_HASH = os.getenv("API_HASH")
-SESSION_STRING = os.getenv("SESSION_STRING")
 
 app = Client(
-    "my_account",
+    "my_account42",
     api_id=API_ID,
     api_hash=API_HASH,
     session_string=SESSION_STRING,
