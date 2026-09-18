@@ -8,6 +8,8 @@ import os
 import asyncio
 from core.loader import bot, client
 
+logging.basicConfig(level=logging.INFO)
+
 _locks: dict[int, asyncio.Lock] = {}
 
 def get_user_lock(user_id: int) -> asyncio.Lock:
@@ -19,7 +21,7 @@ def get_user_lock(user_id: int) -> asyncio.Lock:
 async def get_channel_message(channel_id: int, app):
     try:
         texts = []
-        cutoff_date = datetime.now(timezone.utc) - timedelta(days=1)
+        cutoff_timestamp = (datetime.now(timezone.utc) - timedelta(days=1)).timestamp()
         async for message in app.get_chat_history(channel_id, limit=150):
             if message.date < cutoff_date:
                 break
@@ -30,8 +32,8 @@ async def get_channel_message(channel_id: int, app):
         full_text = "\n".join(reversed(texts))
         return full_text
     
-    except Exception as e:
-        print(f"Ошибка просмотра канала: {e}")
+    except Exception:
+        logging.exception("Ошибка")
         return "Error"
 
 
