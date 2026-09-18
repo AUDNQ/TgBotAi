@@ -7,6 +7,7 @@ import base64
 import os
 import asyncio
 from core.loader import bot, client
+import logging
 
 logging.basicConfig(level=logging.INFO)
 
