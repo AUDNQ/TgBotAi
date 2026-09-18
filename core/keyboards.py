@@ -53,7 +53,7 @@ def build_channels_keyboard(dictionary_channel_id: list, callback_prefix: str) -
 
 def build_ai_keyboard(privilege, ai_privilege):
     """Функция создания клавиатуры выбора ии модели."""
-    builder = InlineKeyboardBuilder
+    builder = InlineKeyboardBuilder()
     choice = ai_privilege.get(privilege)
     
     for model_name, model_id in choice.items():
