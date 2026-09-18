@@ -20,6 +20,14 @@ ai_privilege = {
         "Grok 4.6": "x-ai/grok-4.6",
         "GPT 5.4 mini": "openai/gpt-5.4-mini",
         "Qwen3.8 Max (0902)": "qwen/qwen3.8-max-0902"
+    },
+    "admin": {
+        "Gemini 3.7 Flash": "google/gemini-3.7-flash",
+        "Qwen3.7 Plus": "qwen/qwen3.7-plus",
+        "Claude 3 Haiku": "anthropic/claude-3-haiku",
+        "Grok 4.6": "x-ai/grok-4.6",
+        "GPT 5.4 mini": "openai/gpt-5.4-mini",
+        "Qwen3.8 Max (0902)": "qwen/qwen3.8-max-0902",
     }
 }
 
