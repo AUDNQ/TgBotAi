@@ -24,7 +24,7 @@ async def get_channel_message(channel_id: int, app):
         texts = []
         cutoff_timestamp = (datetime.now(timezone.utc) - timedelta(days=1)).timestamp()
         async for message in app.get_chat_history(channel_id, limit=150):
-            if message.date < cutoff_date:
+            if message.date.timestamp() < cutoff_timestamp:
                 break
             if message.text or message.caption:
                 texts.append(message.text or message.caption)
