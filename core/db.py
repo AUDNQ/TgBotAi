@@ -9,8 +9,6 @@ from dateutil.relativedelta import relativedelta
 from core.data import system_message
 import copy
 
-
-
 load_dotenv()
 DATABASE_URL = os.getenv("DATABASE_URL")
 
@@ -33,9 +31,8 @@ class User(Base):
     ai = Column(String(50), default="anthropic/claude-3-haiku")
     privilege = Column(String(50), nullable=True, default="free")
     dictionary_channel_id = Column(JSON, nullable=True, default=list)
-    message_today = Column(Integer, default=0)
+    tokens_days = Column(Integer, default=0)
     last_message_date = Column(String(20), nullable=True)
-    date_privilege = Column(String(20), default=None)
 
 
 async def check_all(user_id: int):
@@ -44,29 +41,14 @@ async def check_all(user_id: int):
 
         today = str(datetime.date.today())
 
-        if user.date_privilege is not None:
-            str_date_privilege = user.date_privilege
-            object_date_privilege = datetime.datetime.strptime(str_date_privilege, "%Y-%m-%d").date()
-            end_date_privilege = object_date_privilege + relativedelta(months=1)
-            today_date = datetime.date.today()
-            if today_date >= end_date_privilege:
-                await add_privilege(user_id, "free")
-                await add_data(user_id, user_ai="anthropic/claude-3-haiku")
-                await session.commit()
-                return "privilege"
-
-        
         if user.last_message_date != today:
             user.last_message_date = today
-            user.message_today = 0
+            user.tokens_days = 0
             await session.commit()
 
-        if user.privilege == "pro" and user.message_today >= limit["pro"]:
+        if user.privilege == "free" and user.tokens_days >= limit["free"]:    
             return False
-        if user.privilege == "free" and user.message_today >= limit["free"]:    
-            return False
-
-        user.message_today += 1
+        
         await session.commit()
         return True
 
@@ -93,17 +75,7 @@ async def is_user_registered(user_id: int):
         return False
 
 
-async def decrease_message_count(user_id: int):
-    """"Функция удаляет лишний запрос в случае ошибки."""
-    async with async_session() as session:
-        user = await session.get(User, user_id)
-        if user:
-            user.message_today -= 1
-            await session.commit()
-        return False
-
-
-async def add_data(user_id, user_dialogue=None, user_ai=None, dictionary_channel_id=None):
+async def add_data(user_id, user_dialogue=None, user_ai=None, dictionary_channel_id=None, total_tokens=None):
     """Функция для изменение значений в бд."""
     async with async_session() as session:
         user = await session.get(User, user_id)
@@ -114,18 +86,8 @@ async def add_data(user_id, user_dialogue=None, user_ai=None, dictionary_channel
                 user.ai = user_ai
             if dictionary_channel_id is not None:
                 user.dictionary_channel_id = dictionary_channel_id
-            await session.commit()
-            return True
-        return False
-
-
-async def add_privilege(user_id, privilege):
-    """Функция меняет значение привилегии и ставит дату изменения."""
-    async with async_session() as session:
-        user = await session.get(User, user_id)
-        if user:
-            user.privilege = privilege
-            user.date_privilege = str(datetime.date.today()) if privilege == "pro" else None
+            if total_tokens is not None:
+                user.tokens_days = int(total_tokens) + user.tokens_days
             await session.commit()
             return True
         return False
@@ -140,8 +102,7 @@ async def view_user(user_id: int):
                 "user_dialogue": user.dialogue,
                 "user_ai": user.ai,
                 "user_privilege": user.privilege,
-                "user_message_today": user.message_today,
-                "date_privilege": user.date_privilege,
+                "user_tokens_days": user.tokens_days,
                 "dictionary_channel_id": user.dictionary_channel_id
             }
         return None
@@ -151,12 +112,8 @@ async def view_data():
     """Функция считает статистику по пользователям."""
     async with async_session() as session:
         total = await session.scalar(select(func.count()).select_from(User))
-        free = await session.scalar(select(func.count()).select_from(User).where(User.privilege == "free"))
-        pro = await session.scalar(select(func.count()).select_from(User).where(User.privilege == "pro"))
         return {
             "total": total,
-            "free": free,
-            "pro": pro
         }
 
 
