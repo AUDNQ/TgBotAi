@@ -6,3 +6,4 @@ asyncpg
 python-dateutil
 kurigram
 tgcrypto 
+greenlet
