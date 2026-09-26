@@ -3,7 +3,7 @@ from aiogram.fsm.state import State, StatesGroup
 
 limit_channels_free = 5
 limit_tokens_free = 50000
-model_ai_channel = "deepseek/deepseek-v4.1-flash"
+model_ai_channel = "deepseek/deepseek-v4-pro-0813"
 
 
 class AddTitleChanel(StatesGroup):
