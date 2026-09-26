@@ -7,6 +7,7 @@ from core.loader import bot
 
 class UserRegistred(BaseFilter):
     async def __call__(self, event: Union[Message, CallbackQuery]):
+        me = await bot.get_me()
         if isinstance(event, Message):
             if event.chat.type in {ChatType.GROUP, ChatType.SUPERGROUP}:
                 user_id = event.chat.id
