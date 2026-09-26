@@ -46,6 +46,9 @@ async def cmd_choice_ai(message: Message, user_id: int):
 
 @router.message(UserRegistred(), Command("addchannel", prefix=["/", "!"]))
 async def cmd_add_channel(message: Message, user_id: int):
+    if message.chat.type != "private":
+        await message.reply("⚠️ Эта команда работает только в личных сообщениях с ботом!")
+        return
     data_user = await view_user(user_id)
     if data_user["user_privilege"] in {"free", "admin"}:
         await message.reply("Чтобы добавить канал, нажмите кнопку ниже и выберите канал, который хотите добавить.", reply_markup = kb.channel)
