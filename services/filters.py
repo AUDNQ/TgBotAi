@@ -21,9 +21,9 @@ class UserRegistred(BaseFilter):
             return False
         answer = await is_user_registered(user_id)
         if not answer:
-            if isinstance(event, Message):
+            if isinstance(event, Message) and event.chat.type in {ChatType.GROUP, ChatType.SUPERGROUP} and f"{me.username}" in text:
                 await event.reply("Зарегистрируйтесь через /start")
-            else:
+            elif isinstance(event, Message) and event.chat.type == ChatType.PRIVATE:
                 await event.message.reply("Зарегистрируйтесь через /start")
             return False
         return {"user_id": user_id}
