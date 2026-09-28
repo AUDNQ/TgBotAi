@@ -26,3 +26,4 @@ async def update_title(message: Message, state: FSMContext):
         f"ID выбранного канала: `{user_id_channel}`, канал добавлен в список.",
         parse_mode="Markdown"
     )
+await state.clear() 
